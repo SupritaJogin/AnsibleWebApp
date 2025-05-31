@@ -25,7 +25,8 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                bat  'ansible-playbook ansible/playbook.yml -i ansible/hosts.ini'
+                bat 'wsl ansible-playbook ansible/playbook.yml -i ansible/hosts.ini'
+
 
             }
         }
