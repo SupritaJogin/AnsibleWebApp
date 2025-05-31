@@ -13,22 +13,29 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/SupritaJogin/AnsibleWebApp.git'
             }
         }
+
+        stage('Check Jenkins User') {
+            steps {
+                bat 'whoami'
+            }
+        }
+
         stage('Build') {
             steps {
                 bat 'mvn clean package'
             }
         }
+
         stage('Archive') {
             steps {
                 archiveArtifacts artifacts: 'target/*.war', fingerprint: true
             }
         }
+
         stage('Deploy') {
             steps {
                 bat 'wsl ansible-playbook ansible/playbook.yml -i ansible/hosts.ini'
-
-
             }
         }
     }
-} 
+}
